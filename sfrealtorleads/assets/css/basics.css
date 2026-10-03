@@ -1,0 +1,79 @@
+/*
+   
+   RESPONSIVE BREAKPOINTS
+
+   -Mobile (Portrait): < 576px
+   -Mobile (Landscape) / Small Tablets: ≥ 576px (o 320px-480px)
+   -Tablets (Portrait): ≥ 768px
+   -Desktop / Medium Displays: ≥ 992px
+   -Big Desktops / TV: ≥ 1200px 
+
+*/
+
+html {
+   box-sizing: border-box;
+   font-family: sans-serif;
+   font-size: 16px;
+    scroll-behavior: smooth;
+}
+*,*:before,*:after {
+   box-sizing: inherit;
+   margin: 0;
+   padding: 0;
+}
+body {
+   overflow-x: hidden;
+}
+body > section {
+   min-height: 100vh;
+   position: relative;
+}
+
+
+/****** Fonts ******/
+
+/* Inter */
+@font-face {
+   font-family: 'Inter';
+   src:   url('../fonts/Inter.woff2') format('woff2');
+   font-weight: 500; /* medium */
+   font-style: normal;
+}
+@font-face {
+   font-family: 'Inter';
+   src:   url('../fonts/Inter.woff2') format('woff2');
+   font-weight: 400; /* regular */
+   font-style: normal;
+}
+@font-face {
+   font-family: 'Inter';
+   src:   url('../fonts/Inter-Italic.woff2') format('woff2');
+   font-weight: 500; /* medium */
+   font-style: italic;
+}
+@font-face {
+   font-family: 'Inter';
+   src:   url('../fonts/Inter-Italic.woff2') format('woff2');
+   font-weight: 400; /* regular */
+   font-style: italic;
+}
+
+/* Sora */
+@font-face {
+   font-family: 'Sora';
+   src:   url('../fonts/Sora.woff2') format('woff2');
+   font-weight: 700; /* bold */
+   font-style: normal;
+}
+@font-face {
+   font-family: 'Sora';
+   src:   url('../fonts/Sora.woff2') format('woff2');
+   font-weight: 600; /* semi bold */
+   font-style: normal;
+}
+@font-face {
+   font-family: 'Sora';
+   src:   url('../fonts/Sora.woff2') format('woff2');
+   font-weight: 500; /* medium */
+   font-style: normal;
+}

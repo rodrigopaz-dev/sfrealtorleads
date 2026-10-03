@@ -1,0 +1,128 @@
+.section-8 {
+   margin-bottom: 1rem;
+}
+.section-8 p {
+   font-family: 'Sora';
+   font-weight: 600;
+   font-size: 1.4rem;
+   line-height: 1.5;
+   padding: 5rem 20px 0.5rem;
+   text-align: center;
+}
+.section-8 span {
+   display: block;
+   width: fit-content;
+   margin: 5px auto;
+   font-family: 'Inter';
+   font-weight: 400;
+   font-size: 0.8rem;
+}
+.section-8 form {
+   box-shadow: 0px 0px 3px #03223b;
+   border-radius: 5px;
+   margin: 3rem auto;
+   width: 90%;
+   max-width: 400px;
+   padding: 1rem;
+}
+.section-8 form div {
+   margin: 2rem auto 3rem;
+}
+.section-8 form label {
+   display: block;
+   margin: 0.5rem 0;
+   font-family: 'Inter';
+   font-weight: 400;
+   font-size: 1rem;
+}
+.section-8 form label span {
+   display: initial;
+   color: #ff0000;
+}
+.section-8 form input,
+.section-8 form textarea {
+   font-family: 'Inter';
+   font-weight: 400;
+   font-size: 0.9rem;
+   width: 100%;
+   margin: auto;
+   padding: 5px;
+   border-width: 1px;
+   border-style: dotted;
+   outline: none;
+}
+.section-8 form textarea {
+   height: 150px;
+   resize: none;
+}
+.section-8 form select {
+   width: 100%;
+   margin: auto;
+   padding: 5px;
+   border-width: 1px;
+   border-style: dotted;
+   outline: none;
+   font-family: 'Inter';
+   font-weight: 400;
+   font-size: 0.9rem;
+}
+.section-8 form input[type='submit'] {
+   background-color: #22c55e;
+   margin: 1.7rem auto 0.5rem;
+   background-color: #22c55e;
+   color: #fff;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   padding: 18px 30px;
+   font-family: 'Inter';
+   font-size: 0.9rem;
+   text-align: center;
+   font-weight: 500;
+   cursor: pointer;
+   transition: all 0.3s ease;
+}
+.section-8 form input[type='submit']:hover {
+   background-color: #eee;
+   color: #000;
+   border-color: #aaa;
+}
+.section-8 form input[type='submit']:active {
+   background-color: #ddd;
+   transform: scale(0.98);
+}
+.section-8 form div:last-child span {
+   font-style: italic;
+}
+.section-8 .error-message {
+   color: #ff0000;
+   
+}
+
+
+/****** VALIDATION STYLES ******/
+.invalid-input {
+   border-color: #ff0000;
+}
+
+/****** MEDIA QUERIES ******/
+
+@media(min-width: 576px) {
+   .section-8 form input[type='submit'] {
+      font-size: 1.1rem;
+   }
+   .section-8 form {
+      max-width: 550px;
+   }
+   .section-8 form div {
+      width: 80%;
+   }
+}
+
+@media(min-width: 992px) {
+   .section-8 p {
+      font-size: 2rem;
+   }
+   .section-8 span:first-of-type {
+      font-size: 1rem;
+   }
+}

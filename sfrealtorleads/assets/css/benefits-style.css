@@ -1,0 +1,89 @@
+.section-4 {
+   background-color: #fff;
+   margin: 1rem auto;
+   max-width: 90%;
+}
+.section-4 .container {
+   display: flex;
+   flex-wrap: wrap;
+   justify-items: center;
+   max-width: 970px;
+   margin: auto;
+}
+.benefit {
+   text-align: center;
+   line-height: 1.5;
+   font-family: 'Inter';
+   font-weight: 500;
+   font-size: 1.1rem;
+   max-width: 250px;
+   height: 290px;
+   margin: 2rem auto;
+   height: fit-content;
+   border-radius: 10px;
+   position: relative;
+   box-shadow: 0 10px 30px rgba(65, 72, 86, 0.05);
+   padding: 30px 45px;
+}
+.benefit span{
+   font-weight: bold;
+}
+.benefit img{
+   width: 70%;
+   height: 100px;
+   text-align: center;
+   margin: 2rem auto 0;
+}
+.benefit-1 {
+   background: rgba(0,255,34,0.15);
+   border: 2px solid #1eaf31;
+}
+.benefit-1 span{
+   color: #1eaf31;
+}
+.benefit-2 {
+   background-color: rgba(255,255,0,0.15);
+   border: 2px solid #b5b511;
+}
+.benefit-2 span{
+   color: #b5b511;
+}
+.benefit-3 {
+   background-color: rgba(1,87,155,0.15);
+   border: 2px solid #01579b;
+}
+.benefit-3 span{
+   color: #01579b;
+}
+.benefit-4 {
+   background-color: rgba(29,1,155,0.15);
+   border: 2px solid #1d019b;
+}
+.benefit-4 span{
+   color: #1d019b;
+}
+.benefit-5 {
+   background-color: rgba(23,39,105,0.15);
+   border: 2px solid #172767;
+}
+.benefit-5 span{
+   color: #172767;
+}
+
+
+/****** MEDIA QUERIES ******/
+
+@media(min-width: 768px) {
+   .section-4 {
+      min-height: 750px;
+   }
+}
+
+@media(min-width: 1200px) {
+   .section-4 .container {
+      height: 100vh;
+      max-height: 750px;
+      width: 1220px;
+      margin: 0 auto;
+   }
+}
