@@ -25,8 +25,9 @@ Key Features
 - Integration with third-party websites
 
 
-Architecture
--------------```text
+## Architecture
+----------------
+```text
   Website / External Forms
             ↓
   Lead Tracker / REST API
@@ -40,4 +41,5 @@ Architecture
  Email / Follow-up Services
             ↓
     Realtor Dashboard
+
 ```
