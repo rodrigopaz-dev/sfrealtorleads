@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   text-decoration: none;
+}
+body {
+   padding: 1rem;
+   font-family: 'Quicksand', serif;
+   font-style: normal;
+   font-weight: 400;
+   letter-spacing: 0;
+}
+
+/* HEADER */
+header {
+   margin: 20px 0;
+}
+header span {
+   font-weight: bold;
+}
+
+/* INFO */
+.info {
+   display: flex;
+   align-items: center;
+   margin-top: 30px;
+   margin-bottom: 30px;
+}
+.info > div {
+   margin-right: 20px;
+}
+.menu ul {
+   list-style-type: none;
+}
+.menu ul li {
+   width: fit-content;
+   border-radius: 5px;
+   padding: 0.5rem 1rem;
+   border: 1px dotted #f00;
+   transition: ease 0.3s;
+}
+.menu ul li:hover {
+   background-color: rgba(255,0,0,0.1);
+}
+.menu ul li a {
+   color: #000;
+}
+
+/* TABLE */
+.info-lead-detail td {
+   padding: 10px;
+}
+
+/* BUTTON */
+.btn-save-changes input[type="submit"] {
+   color: #fff;
+   font-family: 'Quicksand', serif;
+   font-style: normal;
+   letter-spacing: 0;
+   padding: 5px 10px;
+   border: 1px dotted #190f9e;
+   background-color: #190f9e;
+   border-radius: 3px;
+   cursor: pointer;
+}
+
+/* NOTES */
+.notes {
+   margin: 30px 0;
+}
+.notes h2 {
+   text-align: center;
+}
+.notes-container {
+   margin: 20px;
+   align-items: start;
+	display: grid;
+	gap: 15px;
+	grid-template-columns: repeat(auto-fit, 300px);
+}
+.notes .card-note {
+   border-radius: 5px;
+   border: 2px dashed rgb(223, 17, 195);
+	color: rgb(0, 0, 0);
+	padding: 25px;
+}

@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   text-decoration: none;
+}
+body {
+   padding: 1rem;
+   font-family: 'Quicksand', serif;
+   font-style: normal;
+   font-weight: 400;
+   letter-spacing: 0;
+}
+
+/* HEADER */
+header {
+   margin: 20px 0;
+}
+header span {
+   font-weight: bold;
+}
+
+
+/* INFO */
+.info {
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+   margin-bottom: 30px;
+}
+.menu ul {
+   list-style-type: none;
+}
+.menu ul li {
+   width: fit-content;
+   border-radius: 5px;
+   padding: 0.5rem 1rem;
+   border: 1px dotted #f00;
+   transition: ease 0.3s;
+}
+.menu ul li:hover {
+   background-color: rgba(255,0,0,0.1);
+}
+.menu ul li a {
+   color: #000;
+}
+
+/* FILTERS */
+.filter form > div {
+   margin: 10px 0;
+}
+.filter .filter-inputs > div {
+   display: inline-block;
+}
+.filter .filter-inputs input,
+.filter .filter-inputs select,
+.filter .filter-inputs input[type="date"] {
+   font-family: 'Quicksand', serif;
+   font-style: normal;
+   font-weight: bold;
+   letter-spacing: 0;
+   padding: 5px 10px;
+   border: 1px dotted #000;
+   border-radius: 3px;
+   cursor: pointer;
+}
+.filter .filter-inputs select,
+.filter .filter-inputs input[type="date"] {
+   font-weight: normal;
+}
+.filter-cleaning {
+   margin-bottom: 10px;
+   color: #000;
+   font-weight: bold;
+}
+
+/* TABLE */
+.table table {
+   border: 1px solid #ccc;
+   border-collapse: collapse;
+   margin: 0;
+   padding: 0;
+   width: 100%;
+   table-layout: fixed;
+}
+.table table caption {
+   font-size: 1.5em;
+   margin: .5em 0 .75em;
+}
+.table table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+.table table th,
+.table table td {
+  padding: .625em;
+  text-align: center;
+}
+.table table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+/* BUTTONS */
+.actions {
+   color: #000;
+   font-family: 'Quicksand', serif;
+   font-style: normal;
+   letter-spacing: 0;
+   padding: 5px 10px;
+   border: 1px dotted #000;
+   border-radius: 3px;
+   cursor: pointer;
+}
+.btn-view {
+   background-color: #3fe45b;
+}
+.btn-change-status {
+   background-color: #80dde0;
+}
+.btn-add-note {
+   background-color: #bde412;
+}
+
+@media screen and (max-width: 600px) {
+   .table table {
+      border: 0;
+   }
+   .table table caption {
+      font-size: 1.3em;
+   }
+   .table table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+   }
+   .table table tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+   }
+   .table table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+   }
+   .table table td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+   }
+   .table table td:last-child {
+      border-bottom: 0;
+   }
+}
