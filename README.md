@@ -26,7 +26,7 @@ Key Features
 
 
 Architecture
--------------```
+-------------```text
   Website / External Forms
             ↓
   Lead Tracker / REST API
