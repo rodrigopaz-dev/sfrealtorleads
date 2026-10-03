@@ -26,7 +26,7 @@ Key Features
 
 
 Architecture
--------------
+-------------```
   Website / External Forms
             ↓
   Lead Tracker / REST API
@@ -40,3 +40,4 @@ Architecture
  Email / Follow-up Services
             ↓
     Realtor Dashboard
+```
