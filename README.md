@@ -25,8 +25,8 @@ Key Features
 - Integration with third-party websites
 
 
-## Architecture
-----------------
+Architecture
+-------------
 ```text
   Website / External Forms
             ↓
