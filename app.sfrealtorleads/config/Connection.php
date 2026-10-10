@@ -3,14 +3,21 @@
       private static $instance = null;
       private $conn;
 
-      private string $host = "127.0.0.1";
-      private string $user = "root";
-      private string $pass = "";
-      private string $name = "realtors_lead_system";
+      private string $host;
+      private string $name;
+      private string $user;
+      private string $pass;
+      private string $port;
       private string $charset = 'utf8mb4';
 
       private function __construct() {
-         $dsn = "mysql:host={$this->host};dbname={$this->name};charset={$this->charset}";
+         $this->host = getenv("DB_HOST");
+         $this->name = getenv("DB_NAME");
+         $this->user = getenv("DB_USER");
+         $this->pass = getenv("DB_PASSWORD");
+         $this->port = getenv("DB_PORT");
+
+         $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->name};charset={$this->charset}";
          $options = [
                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Handle error  | Manejo de errores
                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,      // Getting way    | Modo de obtención
