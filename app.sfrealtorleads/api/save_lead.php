@@ -1,5 +1,5 @@
 <?php
-   require_once __DIR__ . "\\..\\config\\Connection.php";
+   require_once __DIR__ . "/../config/Connection.php";
 
    // Leer JSON
    $input = file_get_contents("php://input");
