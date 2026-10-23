@@ -1,8 +1,8 @@
 SF Realtor Leads
 =================
 
-A full-stack lead management and automation paltform
-designed for real state proffesionals.
+A full-stack lead management and automation platform
+designed for real estate proffesionals.
 
 The system captures leads from external websites, stores and manages
 them through a centralized CRM dashboard, and automatically sends follow-up
@@ -52,14 +52,14 @@ Other hosting arrangements could consolidate some components or provide differen
 Architecture
 -------------
 ```text
-                   GitHub Pages
-       User Interface (HTTPS / API Request)
-                        ↓
-             Render - Docker - PHP
-      API, authentication and business logic
-             ↓                      ↓
-    Queries and Writing       Automatical Task
-             ↓                      ↓
-           Aiven                Follow-ups
-      MySQL Persistent       Proccesing emails
+                      GitHub Pages
+           User Interface (HTTPS / API Request)
+                           ↓
+                 Render - Docker - PHP
+         API, authentication and business logic
+             ↓                           ↓
+    Queries and Writing       Scheduled Background Tasks
+             ↓                           ↓
+           Aiven                     Follow-up
+      MySQL Persistent            Email Proccesing
 ```
