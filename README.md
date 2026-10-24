@@ -8,6 +8,20 @@ The system captures leads from external websites, stores and manages
 them through a centralized CRM dashboard, and automatically sends follow-up
 communications based on configurable workflows.
 
+Demo
+-----
+SF Realtor Leads (frontend):    https://rodrigopaz-dev.github.io/sfrealtorleads
+SF Realtor Leads APP (backend): https://sfrealtorleads.onrender.com
+
+How to use:
+SF Realtor Leads is the website for users (realtors) where they can see what the
+platform is designed for. It shows the system features and how to get it.
+
+SF Realtor Leads APP is the system or platform for manage leads. You can use this platform
+for see how the system works and its features. This is a MVP of the app. Some features or
+process may be not include. If you want to sign in, you can use a demo user. For this MVP,
+you can use 'user - password' as an user - password respectively.
+
 Key Features
 -------------
 - Lead capture from external websites
