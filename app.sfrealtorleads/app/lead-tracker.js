@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
          data.realtor_id = config.realtorid;
 
          //Enviar a tu servidor
-         fetch("https://tudominio.com/save_lead.php", {
+         fetch("https://sfrealtorleads.onrender.com/api/save_lead.php", {
             method: "POST",
             headers: {
                "Content-Type": "application/json"
