@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Formulario Responsive</title>
+      <link rel="stylesheet" href="realtor_form_style.css">
+   </head>
+   
+   <body>
+      <div class="form-container">
+         <h2>Contact Form</h2>
+         <form action="" method="POST">
+            
+            <div class="form-group">
+               <label for="full_name">Full Name</label>
+               <input type="text" id="full_name" name="full_name placeholder="John Smith" required>
+            </div>
+
+            <div class="form-group">
+               <label for="type">Who are you?</label>
+               <select id="type" name="type">
+                  <option value="buyer">Buyer</option>
+                  <option value="seller">Seller</option>
+                  <option value="buyer_and_seller">Both</option>
+               </select>
+            </div>
+
+            <div class="form-group">
+               <label for="email">Email</label>
+               <input type="email" id="email" name="email" placeholder="your_email@email.com" required>
+            </div>
+
+            <div class="form-group">
+               <label for="phone">Phone Number</label>
+               <input type="text" id="phone" name="phone" placeholder="(123) 456-7890" required>
+            </div>
+
+            <div class="form-group">
+               <label for="budget">Do you have any budget in mind?</label>
+               <input type="text" id="budget" name="budget" placeholder="$1,000,000" required>
+            </div>
+
+            <div class="form-group">
+               <label for="interest_area">Do you have any preferred area?</label>
+               <input type="text" id="interest_area" name="interest_area placeholder="San Francisco, Daly City, Colma...">
+            </div>
+
+            <div class="form-group">
+               <label for="message">Your comments</label>
+               <textarea id="message" name="message" rows="4" placeholder="Say hello!"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Send Form</button>
+
+         </form>
+      </div>
+
+      <script src="https://sfrealtorleads.onrender.com/app/lead-tracker.js" data-realtorid="1"></script>
+   </body>
+</html>
