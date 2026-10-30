@@ -23,7 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
                "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-         });
+         })
+         .then(response => response.json())
+         .then(data => console.log("Server respond:", data))
+         .catch(error => console.error("Error:", error));
       });
    });
 });

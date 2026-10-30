@@ -1,10 +1,37 @@
 <?php
    require_once __DIR__ . "/../config/Connection.php";
 
+   // 1. Permitir cualquier origen (o cambia * por tu dominio específico)
+   header("Access-Control-Allow-Origin: *");
+
+   // 2. Autorizar los métodos que vas a usar (POST para los datos, OPTIONS para el navegador)
+   header("Access-Control-Allow-Methods: POST, OPTIONS");
+
+   // 3. Permitir que se envíe la cabecera Content-Type (necesaria para JSON)
+   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+   // 4. Responder con éxito inmediato a la petición "Preflight" (OPTIONS) del navegador
+   if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+      http_response_code(200);
+      exit();
+   }
+
+   // 5. Validar que realmente sea una petición POST antes de procesar
+   if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+      http_response_code(405);
+      echo json_encode(["error" => "Method not permitted. Use POST."]);
+      exit();
+   }
+
    // Leer JSON
    $input = file_get_contents("php://input");
    $data = json_decode($input, true);
    echo $data;
+
+   // (Opcional) Responder al cliente para confirmar la recepción
+   header("Content-Type: application/json");
+   echo json_encode(["status" => "success", "received" => $data]);
+
    // Get connection
    $db = Database::getInstance();
    $db = $db->getConnection();
