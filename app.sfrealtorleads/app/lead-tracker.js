@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
    
+   const script = document.currentScript;
    const forms = document.querySelectorAll("form");
    forms.forEach(form => {
       form.addEventListener("submit", function (e) {
@@ -12,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
          });
 
          //Extra info útil
-         const config = document.currentScript.dataset;
+         const config = script.dataset;
          data.page_url = window.location.href;
          data.timestamp = new Date().toISOString();
          data.realtor_id = config.realtorid;
