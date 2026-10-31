@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
          data.page_url = window.location.href;
          data.timestamp = new Date().toISOString();
          data.realtor_id = config.realtorid;
+         console.log(JSON.stringify(data));
 
          //Enviar a tu servidor
          fetch("https://sfrealtorleads.onrender.com/api/save_lead.php", {
