@@ -1,6 +1,6 @@
+const script = document.currentScript;
 document.addEventListener("DOMContentLoaded", function () {
    
-   const script = document.currentScript;
    const forms = document.querySelectorAll("form");
    forms.forEach(form => {
       form.addEventListener("submit", function (e) {
