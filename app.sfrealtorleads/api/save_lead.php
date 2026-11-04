@@ -79,45 +79,49 @@
    $stmt = $db->prepare($sql);
    $stmt->execute(array("leadId" => $lastId, "autoReplay" => true, "follow24h" => true, "follow3d" => true));
 
+   try{
 
-   /********** CODE FOR SEND EMAIL TO REALTOR **********/
-   $headers = "MIME-Version: 1.0\r\n";
-   $headers.= "Content-type: text/html; charset=iso-8859-1\r\n";
-   $headers.= "From: Realtor Leads System < realtorleadsystem@gmail.com >\r\n";
+      /********** CODE FOR SEND EMAIL TO REALTOR **********/
+      $headers = "MIME-Version: 1.0\r\n";
+      $headers.= "Content-type: text/html; charset=iso-8859-1\r\n";
+      $headers.= "From: Realtor Leads System < realtorleadsystem@gmail.com >\r\n";
 
-   //Getting realtor email
-   $sql = "SELECT * FROM REALTORS WHERE ID = $realtorId;";
-   $stmt = $db->prepare($sql);
-   $stmt->execute();
-   $row = $stmt->fetch();
-   $emailRealtor = $row["email"];
+      //Getting realtor email
+      $sql = "SELECT * FROM REALTORS WHERE ID = $realtorId;";
+      $stmt = $db->prepare($sql);
+      $stmt->execute();
+      $row = $stmt->fetch();
+      $emailRealtor = $row["email"];
 
-   $subject = "New Buyer Lead - Downtown SF - $850k";
-   $message = "
-      Name: $fullName\r\n
-      Phone: $phone\r\n
-      Email: $emailClient\r\n
-      Budget: $budget\r\n
-      Area: $interestArea\r\n
-   ";
+      $subject = "New Buyer Lead - Downtown SF - $850k";
+      $message = "
+         Name: $fullName\r\n
+         Phone: $phone\r\n
+         Email: $emailClient\r\n
+         Budget: $budget\r\n
+         Area: $interestArea\r\n
+      ";
 
-   $success = mail($emailRealtor, $subject, $message, $headers);
-   
-   
-   /********** CODE FOR SEND EMAIL TO CLIENT **********/
-   $headers = "";
-   $headers = "MIME-Version: 1.0\r\n";
-   $headers.= "Content-type: text/html; charset=iso-8859-1\r\n";
-   $headers.= "From: Realtor's Website < realtorwebsite@gmail.com >\r\n";
+      $success = mail($emailRealtor, $subject, $message, $headers);
+      
+      
+      /********** CODE FOR SEND EMAIL TO CLIENT **********/
+      $headers = "";
+      $headers = "MIME-Version: 1.0\r\n";
+      $headers.= "Content-type: text/html; charset=iso-8859-1\r\n";
+      $headers.= "From: Realtor's Website < realtorwebsite@gmail.com >\r\n";
 
-   $subject = "Thanks for reaching out!";
-   $message = "Hi John,\r\nThanks for your interest in buying in San Francisco.\r\nI’ll contact you shortly to schedule a consultation.";
+      $subject = "Thanks for reaching out!";
+      $message = "Hi John,\r\nThanks for your interest in buying in San Francisco.\r\nI’ll contact you shortly to schedule a consultation.";
 
-   $successClient = mail($emailClient, $subject, $message, $headers);
-   
-   if($success && $successClient) {
-      echo "Your email was sended to $emailRealtor (realtor) and $emailClient (client).";
-   } else {
-      echo "There was an error trying to send your email";
+      $successClient = mail($emailClient, $subject, $message, $headers);
+      
+      if($success && $successClient) {
+         echo "Your email was sended to $emailRealtor (realtor) and $emailClient (client).";
+      } else {
+         echo "There was an error trying to send your email";
+      }
+   }catch(Exception $e) {
+      echo $e->getMessage();
    }
 ?>
