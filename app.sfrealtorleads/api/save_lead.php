@@ -97,8 +97,8 @@
    $stmt = $db->prepare($sql);
    $stmt->execute();
    $row = $stmt->fetch();
-   $realtorName = $row["email"];
-   $realtorEmail = $row["name"];
+   $realtorEmail = $row["email"];
+   $realtorName = $row["name"];
 
    // Create an instance of the PHPMailer class
    $mail = new PHPMailer(true);
