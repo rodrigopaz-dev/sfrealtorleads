@@ -141,6 +141,7 @@
       // En producción, registra el error internamente. No le muestres $e->getMessage() al cliente final.
       error_log("Error al enviar correo: {$mail->ErrorInfo}");
       echo 'Sorry. There was a problem to proccess your request for realtor email.';
+      echo $mail->ErrorInfo;
    }
    
    
@@ -184,5 +185,6 @@
       // En producción, registra el error internamente. No le muestres $e->getMessage() al cliente final.
       error_log("Error al enviar correo: {$mail->ErrorInfo}");
       echo 'Sorry. There was a problem to proccess your request for client email.';
+      echo $mail->ErrorInfo;
    }   
 ?>
