@@ -34,7 +34,7 @@
    
    require_once __DIR__ . "/../config/Connection.php";
    // Composer autoload
-   require_once __DIR__ . 'vendor/autoload.php';
+   require_once __DIR__ . '/../vendor/autoload.php';
 
    // Classes from PHPMailer
    use PHPMailer\PHPMailer\PHPMailer;
