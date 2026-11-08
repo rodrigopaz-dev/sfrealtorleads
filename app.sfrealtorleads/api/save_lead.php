@@ -169,10 +169,10 @@
       // --- Content ---
       $mail->isHTML(true);                                  
       $mail->Subject = 'You almost get!';
-      $mail->Body    = "
+      $mail->Body    = '
          <h1>¡Hello ' . $fullName . '!</h1>
          <p>Thanks for reaching out!.</p><br>
-         <p>Thanks for your interest in buying in San Francisco.I'll contact you shortly to schedule a meeting. In the meantime, if you have any question, you can send me a email at ' . $realtorEmail . '</p><br>
+         <p>Thanks for your interest in buying in San Francisco.Ill contact you shortly to schedule a meeting. In the meantime, if you have any question, you can send me a email at ' . $realtorEmail . '</p><br>
          <p>Best regards,</p>
          <p>' .$realtorName . '</p>
       ';
