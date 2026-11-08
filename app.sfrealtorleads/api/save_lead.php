@@ -105,13 +105,13 @@
    
    try {
       // --- Server configuration ---
-      $mail->SMTPDebug = SMTP::SMTP_OFF;                      
+      $mail->SMTPDebug = 0;                      
       $mail->isSMTP();                                            
       $mail->Host       = 'smtp.resend.com'; // SMTP Server
       $mail->SMTPAuth   = true;                                   
       $mail->Username   = 'resend';  // email address
       $mail->Password   = getenv("MAIL_PASSWORD"); // password app
-      $mail->SMTPSecure = PHPMailer::TLS;         // TLS (port 587) o ENCRYPTION_SMTPS for SSL (port 465)
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // TLS (port 587) o ENCRYPTION_SMTPS for SSL (port 465)
       $mail->Port       = 587;                                    
       $mail->CharSet    = 'UTF-8';                 // Allow to use 'ñ' and acent without problems
 
