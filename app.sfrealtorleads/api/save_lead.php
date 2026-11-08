@@ -1,5 +1,12 @@
 <?php
    require_once __DIR__ . "/../config/Connection.php";
+   // Composer autoload
+   require 'vendor/autoload.php';
+
+   // Classes from PHPMailer
+   use PHPMailer\PHPMailer\PHPMailer;
+   use PHPMailer\PHPMailer\Exception;
+   use PHPMailer\PHPMailer\SMTP;
 
    // 1. Permitir cualquier origen (o cambia * por tu dominio específico)
    header("Access-Control-Allow-Origin: *");
@@ -79,49 +86,100 @@
    $stmt = $db->prepare($sql);
    $stmt->execute(array("leadId" => $lastId, "autoReplay" => true, "follow24h" => true, "follow3d" => true));
 
-   try{
 
-      /********** CODE FOR SEND EMAIL TO REALTOR **********/
-      $headers = "MIME-Version: 1.0\r\n";
-      $headers.= "Content-type: text/html; charset=iso-8859-1\r\n";
-      $headers.= "From: Realtor Leads System < realtorleadsystem@gmail.com >\r\n";
+   /******* EMAIL FOR REALTOR *******/
 
-      //Getting realtor email
-      $sql = "SELECT * FROM REALTORS WHERE ID = $realtorId;";
-      $stmt = $db->prepare($sql);
-      $stmt->execute();
-      $row = $stmt->fetch();
-      $emailRealtor = $row["email"];
+   // Gett realtor data
+   $sql = "SELECT * FROM REALTORS WHERE ID = $realtorId;";
+   $stmt = $db->prepare($sql);
+   $stmt->execute();
+   $row = $stmt->fetch();
+   $realtorName = $row["email"];
+   $realtorEmail = $row["name"];
 
-      $subject = "New Buyer Lead - Downtown SF - $850k";
-      $message = "
-         Name: $fullName\r\n
-         Phone: $phone\r\n
-         Email: $emailClient\r\n
-         Budget: $budget\r\n
-         Area: $interestArea\r\n
-      ";
+   // Create an instance of the PHPMailer class
+   $mail = new PHPMailer(true);
+   
+   try {
+      // --- Server configuration ---
+      $mail->SMTPDebug = SMTP::SMTP_OFF;                      
+      $mail->isSMTP();                                            
+      $mail->Host       = 'smtp.resend.com'; // SMTP Server
+      $mail->SMTPAuth   = true;                                   
+      $mail->Username   = 'resend';  // email address
+      $mail->Password   = getenv("MAIL_PASSWORD"); // password app
+      $mail->SMTPSecure = PHPMailer::TLS;         // TLS (port 587) o ENCRYPTION_SMTPS for SSL (port 465)
+      $mail->Port       = 587;                                    
+      $mail->CharSet    = 'UTF-8';                 // Allow to use 'ñ' and acent without problems
 
-      $success = mail($emailRealtor, $subject, $message, $headers);
-      
-      
-      /********** CODE FOR SEND EMAIL TO CLIENT **********/
-      $headers = "";
-      $headers = "MIME-Version: 1.0\r\n";
-      $headers.= "Content-type: text/html; charset=iso-8859-1\r\n";
-      $headers.= "From: Realtor's Website < realtorwebsite@gmail.com >\r\n";
+      // --- Addressee ---
+      $mail->setFrom('onboarding@resend.dev', 'SF Realtor Leads');
+      $mail->addAddress($realtorEmail, $realtorName);     
 
-      $subject = "Thanks for reaching out!";
-      $message = "Hi John,\r\nThanks for your interest in buying in San Francisco.\r\nI’ll contact you shortly to schedule a consultation.";
+      // --- Content ---
+      $mail->isHTML(true);                                  
+      $mail->Subject = 'New Lead for You!';
+      $mail->Body    = `
+         <h1>¡Hello $realtorName!</h1>
+         <p>Someone is trying to meet with you.</p><br>
+         <p>Name: $fullName</p>
+         <p>Phone: $phone</p>
+         <p>Email: $emailClient</p>
+         <p>Budget: $budget</p>
+         <p>Area: $interestArea</p><br>
+         <p>Don't lose this lead. Response quickly at $emailClient to follow-up</p>
+      `;
+      $mail->AltBody = 'Este es el texto alternativo en formato plano si el cliente no soporta HTML.';
 
-      $successClient = mail($emailClient, $subject, $message, $headers);
-      
-      if($success && $successClient) {
-         echo "Your email was sended to $emailRealtor (realtor) and $emailClient (client).";
-      } else {
-         echo "There was an error trying to send your email";
-      }
-   }catch(Exception $e) {
-      echo $e->getMessage();
+      // Send email
+      $mail->send();
+      echo 'The email has been sent successfully.';
+   } catch (Exception $e) {
+      // En producción, registra el error internamente. No le muestres $e->getMessage() al cliente final.
+      error_log("Error al enviar correo: {$mail->ErrorInfo}");
+      echo 'Sorry. There was a problem to proccess your request for realtor email.';
    }
+   
+   
+   /******* EMAIL FOR CLIENT *******/
+   
+   // Create an instance of the PHPMailer class
+   $mail = new PHPMailer(true);
+   
+   try {
+      // --- Server configuration ---
+      $mail->SMTPDebug = SMTP::SMTP_OFF;                      
+      $mail->isSMTP();                                            
+      $mail->Host       = 'smtp.resend.com'; // SMTP Server
+      $mail->SMTPAuth   = true;                                   
+      $mail->Username   = 'resend';  // email address
+      $mail->Password   = getenv("MAIL_PASSWORD"); // password app
+      $mail->SMTPSecure = PHPMailer::TLS;         // TLS (port 587) o ENCRYPTION_SMTPS for SSL (port 465)
+      $mail->Port       = 587;
+      $mail->CharSet    = 'UTF-8';                 // Allow to use 'ñ' and acent without problems
+
+      // --- Addressee ---
+      $mail->setFrom('onboarding@resend.dev', 'SF Realtor Leads');
+      $mail->addAddress($emailClient, $fullName);     
+
+      // --- Content ---
+      $mail->isHTML(true);                                  
+      $mail->Subject = 'You almost get!';
+      $mail->Body    = `
+         <h1>¡Hello $fullName!</h1>
+         <p>Thanks for reaching out!.</p><br>
+         <p>Thanks for your interest in buying in San Francisco.I'll contact you shortly to schedule a meeting. In the meantime, if you have any question, you can send me a email at $emailRealtor</p><br>
+         <p>Best regards,</p>
+         <p>$realtorName</p>
+      `;
+      $mail->AltBody = 'Este es el texto alternativo en formato plano si el cliente no soporta HTML.';
+
+      // Send email
+      $mail->send();
+      echo 'The email has been sent successfully.';
+   } catch (Exception $e) {
+      // En producción, registra el error internamente. No le muestres $e->getMessage() al cliente final.
+      error_log("Error al enviar correo: {$mail->ErrorInfo}");
+      echo 'Sorry. There was a problem to proccess your request for client email.';
+   }   
 ?>
