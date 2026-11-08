@@ -148,43 +148,43 @@
    /******* EMAIL FOR CLIENT *******/
    
    // Create an instance of the PHPMailer class
-   $mail = new PHPMailer(true);
+   $mailForClient = new PHPMailer(true);
    
    try {
       // --- Server configuration ---
-      $mail->SMTPDebug = 0;                      
-      $mail->isSMTP();                                            
-      $mail->Host       = 'smtp.resend.com'; // SMTP Server
-      $mail->SMTPAuth   = true;                                   
-      $mail->Username   = 'resend';  // email address
-      $mail->Password   = getenv("MAIL_PASSWORD"); // password app
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // TLS (port 587) o ENCRYPTION_SMTPS for SSL (port 465)
-      $mail->Port       = 587;
-      $mail->CharSet    = 'UTF-8';                 // Allow to use 'ñ' and acent without problems
+      $mailForClient->SMTPDebug = 0;                      
+      $mailForClient->isSMTP();                                            
+      $mailForClient->Host       = 'smtp.resend.com'; // SMTP Server
+      $mailForClient->SMTPAuth   = true;                                   
+      $mailForClient->Username   = 'resend';  // email address
+      $mailForClient->Password   = getenv("MAIL_PASSWORD"); // password app
+      $mailForClient->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // TLS (port 587) o ENCRYPTION_SMTPS for SSL (port 465)
+      $mailForClient->Port       = 587;
+      $mailForClient->CharSet    = 'UTF-8';                 // Allow to use 'ñ' and acent without problems
 
       // --- Addressee ---
-      $mail->setFrom('onboarding@resend.dev', 'SF Realtor Leads');
-      $mail->addAddress($emailClient, $fullName);     
+      $mailForClient->setFrom('onboarding@resend.dev', 'SF Realtor Leads');
+      $mailForClient->addAddress($emailClient, $fullName);     
 
       // --- Content ---
-      $mail->isHTML(true);                                  
-      $mail->Subject = 'You almost get!';
-      $mail->Body    = '
+      $mailForClient->isHTML(true);                                  
+      $mailForClient->Subject = 'You almost get!';
+      $mailForClient->Body    = '
          <h1>¡Hello ' . $fullName . '!</h1>
          <p>Thanks for reaching out!.</p><br>
          <p>Thanks for your interest in buying in San Francisco.Ill contact you shortly to schedule a meeting. In the meantime, if you have any question, you can send me a email at ' . $realtorEmail . '</p><br>
          <p>Best regards,</p>
          <p>' .$realtorName . '</p>
       ';
-      $mail->AltBody = 'Este es el texto alternativo en formato plano si el cliente no soporta HTML.';
+      $mailForClient->AltBody = 'Este es el texto alternativo en formato plano si el cliente no soporta HTML.';
 
       // Send email
-      $mail->send();
+      $mailForClient->send();
       echo 'The email has been sent successfully.';
    } catch (Exception $e) {
       // En producción, registra el error internamente. No le muestres $e->getMessage() al cliente final.
-      error_log("Error al enviar correo: {$mail->ErrorInfo}");
+      error_log("Error al enviar correo: {$mailForClient->ErrorInfo}");
       echo 'Sorry. There was a problem to proccess your request for client email.';
-      echo $mail->ErrorInfo;
+      echo $mailForClient->ErrorInfo;
    }   
 ?>
