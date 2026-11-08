@@ -1,14 +1,30 @@
 FROM php:8.4-apache
 
-# Habilita el módulo de reescritura de Apache
+# 1. Habilita el módulo de reescritura de Apache
 RUN a2enmod rewrite
 
-# INSTALA LA EXTENSIÓN PDO PARA MYSQL (Línea obligatoria)
+# 2. INSTALA LA EXTENSIÓN PDO PARA MYSQL (Línea obligatoria)
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Copia todo el contenido al directorio del servidor
+# 3. Instalar herramientas del sistema necesarias para que Composer funcione (git y unzip)
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# 4. Copiar Composer de manera oficial desde su imagen de Docker
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# 5. Copiar todo el contenido al directorio del servidor
 COPY . /var/www/html/
 
+# 6. Cambiar al directorio de trabajo para ejecutar Composer
+WORKDIR /var/www/html/
+
+# 7. Ejecutar Composer para instalar las dependencias (optimizado para producción)
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+
+# 8. Asignar los permisos correctos a la carpeta de Apache
 RUN chown -R www-data:www-data /var/www/html
 
 ENV PORT=80
