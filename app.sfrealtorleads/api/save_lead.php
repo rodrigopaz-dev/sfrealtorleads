@@ -122,16 +122,16 @@
       // --- Content ---
       $mail->isHTML(true);                                  
       $mail->Subject = 'New Lead for You!';
-      $mail->Body    = `
-         <h1>¡Hello $realtorName!</h1>
+      $mail->Body    = "
+         <h1>¡Hello " . $realtorName . "!</h1>
          <p>Someone is trying to meet with you.</p><br>
-         <p>Name: $fullName</p>
-         <p>Phone: $phone</p>
-         <p>Email: $emailClient</p>
-         <p>Budget: $budget</p>
-         <p>Area: $interestArea</p><br>
-         <p>Don't lose this lead. Response quickly at $emailClient to follow-up</p>
-      `;
+         <p>Name: " . $fullName . "</p>
+         <p>Phone: " . $phone . "</p>
+         <p>Email: " . $emailClient . "</p>
+         <p>Budget: " . $budget . "</p>
+         <p>Area: " . $interestArea . "</p><br>
+         <p>Don't lose this lead. Response quickly at " . $emailClient . " to follow-up</p>
+      ";
       $mail->AltBody = 'Este es el texto alternativo en formato plano si el cliente no soporta HTML.';
 
       // Send email
@@ -169,13 +169,13 @@
       // --- Content ---
       $mail->isHTML(true);                                  
       $mail->Subject = 'You almost get!';
-      $mail->Body    = `
-         <h1>¡Hello $fullName!</h1>
+      $mail->Body    = "
+         <h1>¡Hello " . $fullName . "!</h1>
          <p>Thanks for reaching out!.</p><br>
-         <p>Thanks for your interest in buying in San Francisco.I'll contact you shortly to schedule a meeting. In the meantime, if you have any question, you can send me a email at $realtorEmail</p><br>
+         <p>Thanks for your interest in buying in San Francisco.I'll contact you shortly to schedule a meeting. In the meantime, if you have any question, you can send me a email at " . $realtorEmail . "</p><br>
          <p>Best regards,</p>
-         <p>$realtorName</p>
-      `;
+         <p>" .$realtorName . "</p>
+      ";
       $mail->AltBody = 'Este es el texto alternativo en formato plano si el cliente no soporta HTML.';
 
       // Send email
