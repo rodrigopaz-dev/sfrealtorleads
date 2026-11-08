@@ -1,13 +1,5 @@
 <?php
-   require_once __DIR__ . "/../config/Connection.php";
-   // Composer autoload
-   require_once __DIR__ . 'vendor/autoload.php';
-
-   // Classes from PHPMailer
-   use PHPMailer\PHPMailer\PHPMailer;
-   use PHPMailer\PHPMailer\Exception;
-   use PHPMailer\PHPMailer\SMTP;
-
+   
    // 1. Permitir cualquier origen (o cambia * por tu dominio específico)
    header("Access-Control-Allow-Origin: *");
 
@@ -39,6 +31,17 @@
    header("Content-Type: application/json");
    echo json_encode(["status" => "success", "received" => $data]);
 
+   
+   require_once __DIR__ . "/../config/Connection.php";
+   // Composer autoload
+   require_once __DIR__ . 'vendor/autoload.php';
+
+   // Classes from PHPMailer
+   use PHPMailer\PHPMailer\PHPMailer;
+   use PHPMailer\PHPMailer\Exception;
+   use PHPMailer\PHPMailer\SMTP;
+
+   
    // Get connection
    $db = Database::getInstance();
    $db = $db->getConnection();
