@@ -112,7 +112,7 @@
       $mail->Username   = 'resend';  // email address
       $mail->Password   = getenv("MAIL_PASSWORD"); // password app
       $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // TLS (port 587) o ENCRYPTION_SMTPS for SSL (port 465)
-      $mail->Port       = 587;                                    
+      $mail->Port       = 2587;                                    
       $mail->CharSet    = 'UTF-8';                 // Allow to use 'ñ' and acent without problems
 
       // --- Addressee ---
@@ -159,7 +159,7 @@
       $mailForClient->Username   = 'resend';  // email address
       $mailForClient->Password   = getenv("MAIL_PASSWORD"); // password app
       $mailForClient->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // TLS (port 587) o ENCRYPTION_SMTPS for SSL (port 465)
-      $mailForClient->Port       = 587;
+      $mailForClient->Port       = 2587;
       $mailForClient->CharSet    = 'UTF-8';                 // Allow to use 'ñ' and acent without problems
 
       // --- Addressee ---
