@@ -103,7 +103,7 @@
       // ==========================================
       // GMAIL CONFIGURATION (For both emails)
       // ==========================================
-      $smtpHost     = '://gmail.com';               // Gmail's SMPT Server
+      $smtpHost     = 'smtp.gmail.com';               // Gmail's SMPT Server
       $smtpUsername = 'sfrealtorleads@gmail.com';   // Real email of SF Realtor Leads account
       $smtpPassword = 'lgre kvtl iojo ilcq';        // App Password from Gmail account
       $smtpPort     = 2587;                         // Port TLS
