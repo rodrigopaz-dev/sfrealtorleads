@@ -106,7 +106,7 @@
       $smtpHost     = 'smtp.gmail.com';               // Gmail's SMPT Server
       $smtpUsername = 'sfrealtorleads@gmail.com';   // Real email of SF Realtor Leads account
       $smtpPassword = 'lgre kvtl iojo ilcq';        // App Password from Gmail account
-      $smtpPort     = 465;                         // Port TLS
+      $smtpPort     = 587;                         // Port TLS
       $smtpCharSet  = 'UTF-8';
 
       /******* 1. EMAIL FOR REALTOR *******/
@@ -116,7 +116,7 @@
       $mail->SMTPAuth   = true;                                   
       $mail->Username   = $smtpUsername;
       $mail->Password   = $smtpPassword;
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Gmail requiere TLS obligado
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Gmail requiere TLS obligado
       $mail->Port       = $smtpPort;                                    
       $mail->CharSet    = $smtpCharSet;
 
