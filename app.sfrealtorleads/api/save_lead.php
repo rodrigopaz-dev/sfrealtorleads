@@ -100,34 +100,52 @@
 
 
    try {
-      // ==========================================
-      // GMAIL CONFIGURATION (For both emails)
-      // ==========================================
-      $smtpHost     = 'smtp.gmail.com';               // Gmail's SMPT Server
-      $smtpUsername = 'sfrealtorleads@gmail.com';   // Real email of SF Realtor Leads account
-      $smtpPassword = 'lgre kvtl iojo ilcq';        // App Password from Gmail account
-      $smtpPort     = 587;                         // Port TLS
-      $smtpCharSet  = 'UTF-8';
+      function enviarCorreoBrevo($destinatarioEmail, $destinatarioNombre, $asunto, $contenidoHtml) {
+         $apiKey = getenv('MAIL_PASSWORD');
+         
+         // IMPORTANTE: Usa exactamente el mismo correo que verificaste en el Paso 1
+         $remitente = [
+            'name'  => 'SF Realtor Leads',
+            'email' => 'rodrigopaz.dev@gmail.com' 
+         ];
 
-      /******* 1. EMAIL FOR REALTOR *******/
-      $mail = new PHPMailer(true);
-      $mail->isSMTP();                                            
-      $mail->Host       = $smtpHost;
-      $mail->SMTPAuth   = true;                                   
-      $mail->Username   = $smtpUsername;
-      $mail->Password   = $smtpPassword;
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Gmail requiere TLS obligado
-      $mail->Port       = $smtpPort;                                    
-      $mail->CharSet    = $smtpCharSet;
+         $datos = [
+            'sender'      => $remitente,
+            'to'          => [
+               [
+                     'email' => $destinatarioEmail,
+                     'name'  => $destinatarioNombre
+               ]
+            ],
+            'subject'     => $asunto,
+            'htmlContent' => $contenidoHtml
+         ];
 
-      // IMPORTANT: Gmail's 'setFrom' MUST be the same gmail account or an alias autorized. Another ways,
-      // Gmail will re-write the addressee for safely.
-      $mail->setFrom($smtpUsername, 'SF Realtor Leads');
-      $mail->addAddress($realtorEmail, $realtorName);     
+         $ch = curl_init('https://brevo.com');
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($ch, CURLOPT_POST, true);
+         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));
+         curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'accept: application/json',
+            'api-key: ' . $apiKey,
+            'content-type: application/json'
+         ]);
 
-      $mail->isHTML(true);                                  
-      $mail->Subject = 'New Lead for You!';
-      $mail->Body    = "
+         $respuesta = curl_exec($ch);
+         $codigoHttp = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+         $errorCurl = curl_error($ch);
+         curl_close($ch);
+
+         return [
+            'exito' => ($codigoHttp >= 200 && $codigoHttp < 300),
+            'codigo' => $codigoHttp,
+            'respuesta' => json_decode($respuesta, true),
+            'error' => $errorCurl
+         ];
+      }
+
+      // EMAIL FOR REALTOR
+      $htmlRealtor = "
          <h1>¡Hello {$realtorName}!</h1>
          <p>Someone is trying to meet with you.</p><br>
          <p>Name: {$fullName}</p>
@@ -137,35 +155,44 @@
          <p>Area: {$interestArea}</p><br>
          <p>Don't lose this lead. Respond quickly at {$emailClient} to follow-up</p>
       ";
-      $mail->AltBody = 'Se ha registrado un nuevo Lead en la plataforma.';
-      $mail->send();
+      $envioRealtor = enviarCorreoBrevo(
+         $realtorEmail, 
+         $realtorName, 
+         "New Lead for You!", 
+         $htmlRealtor
+      );
 
-
-      /******* 2. EMAIL FOR CLIENT *******/
-      $mailForClient = new PHPMailer(true);
-      $mailForClient->isSMTP();                                            
-      $mailForClient->Host       = $smtpHost;
-      $mailForClient->SMTPAuth   = true;                                   
-      $mailForClient->Username   = $smtpUsername;
-      $mailForClient->Password   = $smtpPassword;
-      $mailForClient->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-      $mailForClient->Port       = $smtpPort;
-      $mailForClient->CharSet    = $smtpCharSet;
-
-      $mailForClient->setFrom($smtpUsername, 'SF Realtor Leads');
-      $mailForClient->addAddress($emailClient, $fullName);
-
-      $mailForClient->isHTML(true);                                  
-      $mailForClient->Subject = 'You almost get!';
-      $mailForClient->Body    = "
+      // EMAIL FOR CLIENT
+      $htmlClient = "
          <h1>¡Hello {$fullName}!</h1>
          <p>Thanks for reaching out!</p><br>
          <p>Thanks for your interest in buying in San Francisco. I'll contact you shortly to schedule a meeting. In the meantime, if you have any questions, you can send me an email at {$realtorEmail}</p><br>
          <p>Best regards,</p>
          <p>{$realtorName}</p>
       ";
-      $mailForClient->AltBody = 'Gracias por contactarnos. Nos comunicaremos contigo a la brevedad.';
-      $mailForClient->send();   
+      $envioClient = enviarCorreoBrevo(
+         $emailClient, 
+         $fullName, 
+         "You almost get!", 
+         $htmlClient
+      );
+
+
+      if ($envioRealtor['exito'] && $envioClient['exito']) {
+         echo json_encode([
+            'status' => 'success', 
+            'message' => 'Ambos correos fueron enviados correctamente'
+         ]);
+      } else {
+         http_response_code(500);
+         echo json_encode([
+            'status' => 'error',
+            'message' => 'Hubo un problema al enviar uno o ambos correos',
+            'detalle_admin' => $envioRealtor,
+            'detalle_usuario' => $envioClient
+         ]);
+      }
+
    }catch(Exception $e) {
       // Captura errores de PHPMailer o excepciones personalizadas
       error_log("Error en el proceso: " . $e->getMessage());
