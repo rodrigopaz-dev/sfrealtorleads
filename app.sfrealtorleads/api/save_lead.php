@@ -136,6 +136,7 @@
          $errorCurl = curl_error($ch);
          curl_close($ch);
 
+         echo "terminando curl";
          return [
             'exito' => ($codigoHttp >= 200 && $codigoHttp < 300),
             'codigo' => $codigoHttp,
