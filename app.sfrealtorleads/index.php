@@ -1,4 +1,5 @@
 <?php
+   echo "this is index.php in app.sfrealtorleads";
    require_once __DIR__ . "/config/Connection.php";
 
    // Get connection
