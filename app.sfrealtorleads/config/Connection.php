@@ -1,4 +1,6 @@
 <?php
+   require_once __DIR__ . '/../vendor/autoload.php';
+
    class Database {
       private static $instance = null;
       private $conn;
@@ -11,11 +13,14 @@
       private string $charset = 'utf8mb4';
 
       private function __construct() {
-         $this->host = getenv("DB_HOST");
-         $this->name = getenv("DB_NAME");
-         $this->user = getenv("DB_USER");
-         $this->pass = getenv("DB_PASSWORD");
-         $this->port = getenv("DB_PORT");
+         $dotenv = Dotenv\Dotenv::createImmutable('/domains/sfleads.rodrigopazz.com');
+         $dotenv->load();
+   
+         $this->host = $_ENV['DB_HOST'];
+         $this->name = $_ENV['DB_NAME'];
+         $this->user = $_ENV['DB_USER'];
+         $this->pass = $_ENV['DB_PASSWORD'];
+         $this->port = $_ENV['DB_PORT'];
 
          $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->name};charset={$this->charset}";
          $options = [

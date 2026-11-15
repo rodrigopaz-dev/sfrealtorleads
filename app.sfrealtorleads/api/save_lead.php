@@ -36,6 +36,9 @@
    // Composer autoload
    require_once __DIR__ . '/../vendor/autoload.php';
 
+   $dotenv = Dotenv\Dotenv::createImmutable('/domains/sfleads.rodrigopazz.com');
+   $dotenv->load();
+
    // Classes from PHPMailer
    use PHPMailer\PHPMailer\PHPMailer;
    use PHPMailer\PHPMailer\Exception;
@@ -101,27 +104,26 @@
 
    try {
       // ==========================================
-      // GMAIL CONFIGURATION (For both emails)
+      // HOSTING CONFIGURATION (For both emails)
       // ==========================================
-      $smtpHost     = 'smtp.gmail.com';               // Gmail's SMPT Server
-      $smtpUsername = 'sfrealtorleads@gmail.com';   // Real email of SF Realtor Leads account
-      $smtpPassword = 'lgre kvtl iojo ilcq';        // App Password from Gmail account
-      $smtpPort     = 587;                         // Port TLS
-      $smtpCharSet  = 'UTF-8';
+      $smtpHost     = $_ENV['SMTP_HOST'];       // Hosting's SMPT Server
+      $smtpUsername = $_ENV['SMTP_USERNAME'];   // Hosting email for notifications
+      $smtpPassword = $_ENV['SMTP_PASSWORD'];   // Email password
+      $smtpPort     = $_ENV['SMTP_PORT'];       // Port SSL
+      $smtpCharSet  = $_ENV['SMTP_CHARSET'];    // Charset
+
 
       /******* 1. EMAIL FOR REALTOR *******/
       $mail = new PHPMailer(true);
       $mail->isSMTP();                                            
       $mail->Host       = $smtpHost;
-      $mail->SMTPAuth   = true;                                   
+      $mail->SMTPAuth   = true;
       $mail->Username   = $smtpUsername;
       $mail->Password   = $smtpPassword;
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Gmail requiere TLS obligado
-      $mail->Port       = $smtpPort;                                    
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTP;
+      $mail->Port       = $smtpPort;
       $mail->CharSet    = $smtpCharSet;
 
-      // IMPORTANT: Gmail's 'setFrom' MUST be the same gmail account or an alias autorized. Another ways,
-      // Gmail will re-write the addressee for safely.
       $mail->setFrom($smtpUsername, 'SF Realtor Leads');
       $mail->addAddress($realtorEmail, $realtorName);     
 
@@ -148,7 +150,7 @@
       $mailForClient->SMTPAuth   = true;                                   
       $mailForClient->Username   = $smtpUsername;
       $mailForClient->Password   = $smtpPassword;
-      $mailForClient->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+      $mailForClient->SMTPSecure = PHPMailer::ENCRYPTION_SMTP;
       $mailForClient->Port       = $smtpPort;
       $mailForClient->CharSet    = $smtpCharSet;
 
