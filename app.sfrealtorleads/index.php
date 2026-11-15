@@ -1,5 +1,14 @@
 <?php
-   echo "this is index.php in app.sfrealtorleads";
+   set_exception_handler(function (Throwable $exception) {
+      // Registrer error in error_log file
+      error_log("[" . get_class($exception) . "] " . $exception->getMessage() . " in " . $exception->getFile() . " line " . $exception->getLine());
+
+      // Show standard message to the client
+      http_response_code(500);
+      echo "Sorry, there was an internal error in server.";
+      exit;
+   });
+
    require_once __DIR__ . "/config/Connection.php";
 
    // Get connection
