@@ -1,7 +1,48 @@
 <?php
+   // 1. Si la cookie ya existe, usamos esa zona horaria
+   if (isset($_COOKIE['user_timezone'])) {
+      $userTimezone = $_COOKIE['user_timezone'];
+      
+      // Validamos que sea una zona horaria válida antes de establecerla
+      if (in_array($userTimezone, timezone_identifiers_list())) {
+         date_default_timezone_set($userTimezone);
+      }
+   } else {
+      // Zona horaria por defecto si aún no se ha detectado
+      date_default_timezone_set('UTC'); 
+   }
+
+   echo "Zona horaria establecida: " . date_default_timezone_get() . "<br>";
+   echo "Hora actual: " . date('Y-m-d H:i:s');
+?>
+
+<!-- 2. Código JavaScript para detectar la zona horaria y guardarla en una cookie -->
+<script>
+    // Obtiene el identificador (ej. "America/Mexico_City", "Europe/Madrid")
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+    // Guarda la zona horaria en una cookie que PHP leerá en la siguiente recarga
+    document.cookie = "user_timezone=" + userTimezone + "; path=/; max-age=31536000; SameSite=Lax";
+    
+    // Si es la primera vez que entra, recarga para que PHP aplique el cambio de inmediato
+    if (!document.cookie.includes('user_timezone')) {
+        location.reload();
+    }
+</script>
+
+<?php
    set_exception_handler(function (Throwable $exception) {
+
+      $zonaUsuario = $_COOKIE['user_timezone'] ?? 'UTC';
+      try {
+         $zona = new DateTimeZone($zonaUsuario);
+      } catch (Exception $e) {
+         $zona = new DateTimeZone('UTC');
+      }
       // Registrer error in error_log file
-      error_log("[" . get_class($exception) . "] " . $exception->getMessage() . " in " . $exception->getFile() . " line " . $exception->getLine());
+      
+      $local = new DateTimeImmutable('now', $zona);
+      error_log("[Local " . $local->format('d-M-Y H:i:s T') . "] " .  "[" . get_class($exception) . "] " . $exception->getMessage() . " in " . $exception->getFile() . " line " . $exception->getLine());
 
       // Show standard message to the client
       http_response_code(500);
