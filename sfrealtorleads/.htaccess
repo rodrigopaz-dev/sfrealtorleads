@@ -1,0 +1,4 @@
+RewriteEngine On
+# Redirigir la raíz del dominio a la subcarpeta
+RewriteCond %{REQUEST_URI} !^/sfrealtorleads/
+RewriteRule ^(.*)$ /sfrealtorleads/$1 [L]
