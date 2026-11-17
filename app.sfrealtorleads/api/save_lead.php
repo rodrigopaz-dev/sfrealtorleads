@@ -36,7 +36,7 @@
    // Composer autoload
    require_once __DIR__ . '/../vendor/autoload.php';
 
-   $dotenv = Dotenv\Dotenv::createImmutable('/domains/sfleads.rodrigopazz.com');
+   $dotenv = Dotenv\Dotenv::createImmutable('/home/u279829464/domains/sfleads.rodrigopazz.com');
    $dotenv->load();
 
    // Classes from PHPMailer

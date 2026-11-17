@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
          console.log(JSON.stringify(data));
 
          //Enviar a tu servidor
-         fetch("https://sfrealtorleads.onrender.com/api/save_lead.php", {
+         fetch("https://app.sfleads.rodrigopazz.com/api/save_lead.php", {
             method: "POST",
             headers: {
                "Content-Type": "application/json"
