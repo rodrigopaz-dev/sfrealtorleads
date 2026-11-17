@@ -13,7 +13,7 @@
       private string $charset = 'utf8mb4';
 
       private function __construct() {
-         $dotenv = Dotenv\Dotenv::createImmutable('/domains/sfleads.rodrigopazz.com');
+         $dotenv = Dotenv\Dotenv::createImmutable('/home/u279829464/domains/sfleads.rodrigopazz.com');
          $dotenv->load();
    
          $this->host = $_ENV['DB_HOST'];
