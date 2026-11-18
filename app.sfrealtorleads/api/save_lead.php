@@ -42,7 +42,7 @@
    // Classes from PHPMailer
    use PHPMailer\PHPMailer\PHPMailer;
    use PHPMailer\PHPMailer\Exception;
-   use PHPMailer\PHPMailer\SMTP;
+   use PHPMailer\PHPMailer\SMTPS;
 
    
    // Get connection
@@ -120,7 +120,7 @@
       $mail->SMTPAuth   = true;
       $mail->Username   = $smtpUsername;
       $mail->Password   = $smtpPassword;
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTP;
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
       $mail->Port       = $smtpPort;
       $mail->CharSet    = $smtpCharSet;
 
