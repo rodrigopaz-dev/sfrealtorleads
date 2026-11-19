@@ -11,6 +11,17 @@
       <div class="form-container">
          <h2>Contact Form</h2>
          <form action="" method="POST">
+            <p>This is a demo form when you can try the automatic respond of SF Realtor Leads App</p>
+            <p>How Does it work?<br>First, enter an email address you have access to in the "real estate agent's email" field. You will receive a copy of the message that is sent to the real estate agent whenever a user visits their website and fills out the contact form. This field is included solely so that you can see the email the agent will receive in their personal inbox; it is not part of the system itself.</p>
+
+            <div class="form-group">
+               <label for="full_name">Realtor email (for demo purpose only)</label>
+               <input type="email" id="raltor_email" name="raltor_email" placeholder="realtor_email@email.com" required>
+            </div>
+
+            <h2>Client Details</h2>
+            
+            <p>Then, fill out the client's fields. This fields pretend to be the realtor website's contact form. You can enter a different email address from the realtor email address in "email" field so that you can see how it works in both email address (realtor email and client email). However, you can enter the same email address in both fields if you don't have access to another email account. Both emails going to be sent at the same email address, one for realtor and one for client.</p>
             
             <div class="form-group">
                <label for="full_name">Full Name</label>
@@ -19,7 +30,7 @@
 
             <div class="form-group">
                <label for="type">Who are you?</label>
-               <select id="type" name="type">
+               <select id="type" name="type" required>
                   <option value="buyer">Buyer</option>
                   <option value="seller">Seller</option>
                   <option value="buyer_and_seller">Both</option>
@@ -28,7 +39,7 @@
 
             <div class="form-group">
                <label for="email">Email</label>
-               <input type="email" id="email" name="email" placeholder="your_email@email.com" required>
+               <input type="email" id="email" name="email" placeholder="your_client_email@email.com" required>
             </div>
 
             <div class="form-group">
@@ -43,7 +54,7 @@
 
             <div class="form-group">
                <label for="interest_area">Do you have any preferred area?</label>
-               <input type="text" id="interest_area" name="interest_area" placeholder="San Francisco, Daly City, Colma...">
+               <input type="text" id="interest_area" name="interest_area" placeholder="San Francisco, Daly City, Colma..." required>
             </div>
 
             <div class="form-group">

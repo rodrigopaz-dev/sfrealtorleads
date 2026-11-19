@@ -12,14 +12,14 @@ document.addEventListener("DOMContentLoaded", function () {
             data[key] = value;
          });
 
-         //Extra info útil
+         //Extra info
          const config = script.dataset;
          data.page_url = window.location.href;
          data.timestamp = new Date().toISOString();
          data.realtor_id = config.realtorid;
          console.log(JSON.stringify(data));
 
-         //Enviar a tu servidor
+         //Send to app
          fetch("https://app.sfleads.rodrigopazz.com/api/save_lead.php", {
             method: "POST",
             headers: {
@@ -28,7 +28,11 @@ document.addEventListener("DOMContentLoaded", function () {
             body: JSON.stringify(data)
          })
          .then(response => response.text())
-         .then(data => console.log("Server respond:", data))
+         .then(data => {
+            console.log("Server respond:", data);
+            alert(`Your form has been sent successfuly.\nNow you are going to redirect to SF Realtor Leads App.You can log in with the user demo:\n\nusername: demo_user\npassword: 1234`);
+            location.href = "https://app.sfleads.rodrigopazz.com";
+         })
          .catch(error => console.error("Error:", error));
       });
    });

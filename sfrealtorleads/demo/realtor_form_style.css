@@ -23,11 +23,20 @@ body {
    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+.form-container p {
+   margin-bottom: 20px;
+   text-align: justify;
+}
+
 .form-container h2 {
    margin-bottom: 20px;
    color: #333333;
    text-align: center;
    font-size: 1.5rem;
+}
+
+.form-container form h2 {
+   margin-top: 40px;
 }
 
 .form-group {

@@ -11,9 +11,6 @@
       // Zona horaria por defecto si aún no se ha detectado
       date_default_timezone_set('UTC'); 
    }
-
-   echo "Zona horaria establecida: " . date_default_timezone_get() . "<br>";
-   echo "Hora actual: " . date('Y-m-d H:i:s');
 ?>
 
 <!-- 2. Código JavaScript para detectar la zona horaria y guardarla en una cookie -->
@@ -98,7 +95,7 @@
                <input type="password" id="password" name="password" placeholder="password"/>
                <input type="submit" name="submit" id="submit" value="login">
                <?php if (isset($error)) { ?>
-                  <p class="message">Incorrect user or password<br>Try again</p>
+                  <p class="message">Incorrect user or password<br>Try again with:<br><br>username: user_demo<br>password: 1234</p>
                <?php } ?>
             </form>
          </div>
