@@ -150,7 +150,7 @@
       $mailForClient->SMTPAuth   = true;                                   
       $mailForClient->Username   = $smtpUsername;
       $mailForClient->Password   = $smtpPassword;
-      $mailForClient->SMTPSecure = PHPMailer::ENCRYPTION_SMTP;
+      $mailForClient->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
       $mailForClient->Port       = $smtpPort;
       $mailForClient->CharSet    = $smtpCharSet;
 
