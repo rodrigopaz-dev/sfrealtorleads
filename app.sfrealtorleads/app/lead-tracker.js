@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
          .then(response => response.text())
          .then(data => {
             console.log("Server respond:", data);
-            alert(`Your form has been sent successfuly.\nNow you are going to redirect to SF Realtor Leads App.You can log in with the user demo:\n\nusername: demo_user\npassword: 1234`);
+            alert("Your form has been sent successfuly.\nNow you are going to redirect to SF Realtor Leads App.You can log in with the user demo:\n\nusername: demo_user\npassword: 1234");
             location.href = "https://app.sfleads.rodrigopazz.com";
          })
          .catch(error => console.error("Error:", error));
