@@ -60,22 +60,23 @@
    }
 
    //Intentar mapear campos comunes
-   $realtorId    = getField($data, ["realtor_id"]);
-   $fullName     = getField($data, ["name", "full_name", "firstName"]);
-   $type         = getField($data, ["type","type_of","type-of","kinda","kind_of","kind-of"]);
-   $emailClient  = getField($data, ["email", "email_address"]);
-   $phone        = getField($data, ["phone", "tel", "mobile"]);
-   $budget       = getField($data, ["budget"]);
-   $interestArea = getField($data, ["interest_area"]);
-   $message      = getField($data, ["message", "comments"]);
-   $status       = "new";
-   $createdAt    = date('Y/m/d');
+   $realtorEmailDemo    = getField($data, ["realtor_email"]);
+   $realtorId           = getField($data, ["realtor_id"]);
+   $fullName            = getField($data, ["name", "full_name", "firstName"]);
+   $type                = getField($data, ["type","type_of","type-of","kinda","kind_of","kind-of"]);
+   $emailClient         = getField($data, ["email", "email_address"]);
+   $phone               = getField($data, ["phone", "tel", "mobile"]);
+   $budget              = getField($data, ["budget"]);
+   $interestArea        = getField($data, ["interest_area"]);
+   $message             = getField($data, ["message", "comments"]);
+   $status              = "new";
+   $createdAt           = date('Y/m/d');
 
-   // Guardar TODO el JSON
+   // Save everything in JSON
    $rawData = json_encode($data);
 
    
-   //INSERT IN LEADS TABLE
+   // Insert in LEADS table
    $sql = "INSERT INTO LEADS (REALTOR_ID, FULL_NAME, TYPE, EMAIL, PHONE, BUDGET, INTEREST_AREA, STATUS, CREATED_AT, RAW_DATA)
    VALUES (:realtorId, :fullName, :type, :email, :phone, :budget, :interestArea, :status, :createdAt, :rawData);";
    
@@ -83,7 +84,7 @@
    $stmt->execute(array("realtorId" => $realtorId, "fullName" => $fullName, "type" => $type, "email" => $emailClient, "phone" => $phone, "budget" => $budget, "interestArea" => $interestArea, "status" => $status, "createdAt" => $createdAt, "rawData" => $rawData));
 
    
-   //INSERT IN FOLLOWUPS TABLE
+   // Insert in FOLLOWUPS table
    $lastId = $db->lastInsertId();
 
    $sql = "INSERT INTO FOLLOWUPS (LEAD_ID, AUTO_REPLAY, FOLLOW_24H, FOLLOW_3D)
@@ -125,21 +126,21 @@
       $mail->CharSet    = $smtpCharSet;
 
       $mail->setFrom($smtpUsername, 'SF Realtor Leads');
-      $mail->addAddress($realtorEmail, $realtorName);     
+      $mail->addAddress($realtorEmailDemo, $realtorName);     
 
       $mail->isHTML(true);                                  
       $mail->Subject = 'New Lead for You!';
       $mail->Body    = "
          <h1>¡Hello {$realtorName}!</h1>
-         <p>Someone is trying to meet with you.</p><br>
-         <p>Name: {$fullName}</p>
-         <p>Phone: {$phone}</p>
-         <p>Email: {$emailClient}</p>
-         <p>Budget: {$budget}</p>
-         <p>Area: {$interestArea}</p><br>
-         <p>Don't lose this lead. Respond quickly at {$emailClient} to follow-up</p>
+         <p>{$fullName} is trying to connect with you. We have sent an automatic email to this person. <strong?>Don't let it go!</strong> Get in touch as soon as possible. Here are the details:</p>
+         <ul>
+            <li>Phone number:  {$phone}</li>
+            <li>Email address: {$emailClient}</li>
+            <li>Budget:        {$budget}</li>
+            <li>Interest area: {$interestArea}</li>
+         </ul>
+         <p>Don't lose this lead. Respond promptly at {$emailClient} to follow up</p>
       ";
-      $mail->AltBody = 'Se ha registrado un nuevo Lead en la plataforma.';
       $mail->send();
 
 
@@ -161,12 +162,9 @@
       $mailForClient->Subject = 'You almost get!';
       $mailForClient->Body    = "
          <h1>¡Hello {$fullName}!</h1>
-         <p>Thanks for reaching out!</p><br>
-         <p>Thanks for your interest in buying in San Francisco. I'll contact you shortly to schedule a meeting. In the meantime, if you have any questions, you can send me an email at {$realtorEmail}</p><br>
-         <p>Best regards,</p>
-         <p>{$realtorName}</p>
+         <p>Thank you for connecting with us. We will contact you shortly to know more details about your needs and talk about what do you want. In the meantime, if you have any questions, you can send an email at {$realtorEmailDemo}</p>
+         <p>Best regards,<br>{$realtorName}</p>
       ";
-      $mailForClient->AltBody = 'Gracias por contactarnos. Nos comunicaremos contigo a la brevedad.';
       $mailForClient->send();   
    }catch(Exception $e) {
       // Captura errores de PHPMailer o excepciones personalizadas
